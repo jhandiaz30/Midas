@@ -1,0 +1,20 @@
+ion-content {
+  --padding-top: 40%;
+}
+ion-item {
+  --background: transparent;
+}
+.item-has-focus ion-label,
+.titulo {
+  color: white !important;
+}
+// ion-button{
+//     --color: white;
+//     --background: #009BDB;
+// }
+ion-img {
+  margin: 0 auto;
+}
+.border {
+  --border-color: transparent;
+}

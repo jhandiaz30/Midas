@@ -1,0 +1,133 @@
+<ion-header class="fondoAzulApp">
+  <ion-toolbar>
+    <app-atras slot="start"></app-atras>
+    <ion-title class="container">Editar Inspección/Encuesta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fondoAzulApp">
+  <!--formulario que valida los datos del encabezado de la encuesta-->
+  <form [formGroup]="formEncabezado">
+    <ion-item>
+      <ion-label position="stacked">Número de Inspección/Encuesta </ion-label>
+      <ion-input type="text" disabled="true"> {{IdEncuesta}} </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label> Contrato:&nbsp; </ion-label>
+      <!--<ion-input *ngIf="!mostrar" type="text" disabled="true"> {{contrato}} </ion-input>
+      <ion-button size="small" expand="block" type="submit" (click)="mostrarSelec()" *ngIf="!mostrar">
+        Editar
+      </ion-button>-->
+
+      <ion-select
+        interface="alert"
+        placeholder="Seleccionar"
+        cancelText="Cancelar"
+        formControlName="cont"
+        (ionChange)="selectAdminDepend(formEncabezado.get('cont').value)"
+      >
+        <ion-select-option *ngFor="let con of loadContrato" value="{{con.ID_CONTRATO}}">{{ con.NUMERO }} </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Administrador del contrato </ion-label>
+      <ion-input type="text" disabled="true"> {{admin}} </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Número de grupo de trabajo </ion-label>
+      <ion-input type="tel" formControlName="Ncuadrilla"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Número de consignacion de ESSA</ion-label>
+      <ion-input type="tel" formControlName="NConsignacion"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Nombre del jefe grupo de trabajo</ion-label>
+      <ion-input type="text" formControlName="nombreJefe"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Actividad a realizar</ion-label>
+      <ion-input type="text" formControlName="actividad"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="formEncabezado.get('actividad').hasError('maxlength')" class="sizeTextMessageInvalidInputs" lines="none">
+      Maximo 50 caracteres
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Fecha Inspección/Encuesta</ion-label>
+      <ion-datetime formControlName="fechaEncuesta" cancelText="Cerrar" doneText="Ok" displayFormat="DD/MM/YYYY"> </ion-datetime>
+    </ion-item>
+  </form>
+
+  <div>
+    <!--se llama el array de preguntas-->
+    <ion-card *ngFor="let preg of loadPregunta;let i=index">
+      <ion-card-header>
+        <ion-item>
+          <ion-label class="overflow-visible">{{preg.ORDEN_PREGUNTAS}}. {{ preg.TITULO }}</ion-label>
+
+          <br />
+        </ion-item>
+      </ion-card-header>
+      <ion-card-content>
+        <!--se asigna cada respuesta a la cada pregunta-->
+        <ion-item>
+          <ion-label>Respuesta: </ion-label>
+          <ion-input spellcheck="true" type="text" disabled="true">{{opc[i]}}</ion-input>
+        </ion-item>
+
+        <!-- Se asigna la respuesta a cada pregunta -->
+
+        <ion-item class="prueba" *ngIf="loadOpc[i]">
+          <ion-label>Editar respuesta</ion-label>
+          <ion-select
+            interface="alert"
+            placeholder="{{opc[i]}}"
+            cancelText="Cancelar"
+            name="opc"
+            [(ngModel)]="Form.opc[i]"
+            value="{{opc[i]}}"
+          >
+            <ion-select-option *ngFor="let opc of loadOpc[i]" [value]="opc">{{opc.TITULO}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-textarea name="obs" [(ngModel)]="Form.obs[i]" placeholder="Agregar una observación" autoGrow="true"> </ion-textarea>
+
+        <ion-segment class="evidencia">
+          <ion-segment-button value="home" (click)="cameraParameter(i,true)">
+            <ion-icon name="camera"></ion-icon>
+            <ion-label>Tomar evidencia</ion-label>
+          </ion-segment-button>
+
+          <ion-segment-button class="evidencia" value="heart" (click)="cameraParameter(i,false)">
+            <ion-icon name="ios-attach"></ion-icon>
+            <ion-label>Subir evidencia</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <img [src]="foto[i]" *ngIf="foto[i]" />
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-button size="large" expand="block" type="submit" (click)="editarEncabezadoEncuesta()" (click)="editarRtasEncuesta()">
+    Guardar Cambios
+  </ion-button>
+
+  <ion-button (click)="openPDF()" size="large" expand="block" type="submit" [disabled]="statusButton"> Generar PDF </ion-button>
+
+  <ion-button (click)="OpenConfirmDialogue()" size="large" expand="block" type="submit" [disabled]="statusButton">
+    Guardar y Finalizar
+  </ion-button>
+
+  <ion-button (click)="OpenConfirmDialogueEliminar()" size="large" expand="block" type="submit" color="danger">
+    <ion-icon name="trash" size="large"></ion-icon>
+  </ion-button>
+</ion-content>

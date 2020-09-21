@@ -1,0 +1,128 @@
+<ion-header class="fondoAzulApp">
+  <ion-toolbar>
+    <app-atras slot="start"></app-atras>
+    <ion-title class="container">{{titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fondoAzulApp">
+
+  <!--formulario para el encabezado de la encuesta-->
+  <form [formGroup]="formEncabezado" (ngSubmit)="sendData()">
+
+    <ion-item>
+      <ion-label>Contrato</ion-label>
+      <ion-select interface="alert" placeholder="Seleccionar" cancelText="Cancelar" formControlName="cont"
+        (ionChange)="selectAdminDepend(formEncabezado.get('cont').value)">
+        <ion-select-option *ngFor="let con of loadContrato" value="{{con.ID_CONTRATO}}"
+          (clink)="opcionRta(this,this.form)">{{ con.NUMERO }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Administrador del contrato </ion-label>
+      <ion-input type="text" disabled="true"> {{admin}} </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Número de grupo de trabajo </ion-label>
+      <ion-input type="tel" formControlName="Ncuadrilla"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Número de consignacion de ESSA</ion-label>
+      <ion-input type="tel" formControlName="NConsignacion"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Nombre de jefe grupo de trabajo</ion-label>
+      <ion-input type="text" formControlName="nombreJefe"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Actividad a realizar</ion-label>
+      <ion-input type="text" formControlName="actividad"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="formEncabezado.get('actividad').hasError('maxlength')" class="sizeTextMessageInvalidInputs"
+      lines="none">
+      Maximo 50 caracteres
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Fecha Inspección/Encuesta</ion-label>
+      <ion-datetime formControlName="fechaEncuesta" cancelText="Cerrar" doneText="Ok" displayFormat="DD/MM/YYYY">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-button size="large" expand="block" type="submit" onclick="this.disabled = true" (click)="accion1()"
+      [disabled]="!formEncabezado.valid"> Enviar
+    </ion-button>
+
+  </form>
+
+
+  <!-- div con lista de cards que muestra las preguntas de cada encuesta, una pregunta por card-->
+  <div *ngIf="ocultar1">
+
+    <!-- se genera la lista de cards-->
+    <ion-card *ngFor="let pregs of loadPregunta;let i=index">
+      <ion-card-header>
+        <ion-item>
+
+          <!--se muestra el titulo de la pregunta -->
+          <ion-label class="overflow-visible">{{pregs.ORDEN_PREGUNTAS}}. {{ pregs.TITULO }}</ion-label>
+          <br>
+        </ion-item>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <!-- se evalua si tiene opciones de respuesta de lo  comtrario no se muestra el select-->
+        <ion-item *ngIf="loadOpc[i]">
+
+          <ion-label>Respuestas:</ion-label>
+          <!--Prueba myCustomSelect-->
+          <ion-select class="myCustomSelect" interface="alert" placeholder="Seleccionar" cancelText="Cancelar"
+            name="opc" [(ngModel)]="Form.opc[i]">
+            <ion-select-option *ngFor="let opc of loadOpc[i]" [value]="opc">{{opc.TITULO}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- se evalua si tiene opciones de respuesta de lo contrrio muestra el textarea para agregar una respuesta a la pregunta-->
+        <ion-textarea *ngIf="loadOpc[i]" name="obs" [(ngModel)]="Form.obs[i]" placeholder="Agregar una observación"
+          autoGrow=true></ion-textarea>
+        <ion-textarea *ngIf="!loadOpc[i]" name="obs" [(ngModel)]="Form.obs[i]"
+          placeholder="Agregar una observación o respuesta" autoGrow=true></ion-textarea>
+
+        <ion-segment class="evidencia">
+          <ion-segment-button value="home" (click)="cameraParameter(i,true)">
+            <ion-icon name="camera"></ion-icon>
+            <ion-label>Tomar evidencia</ion-label>
+          </ion-segment-button>
+
+          <ion-segment-button class="evidencia" value="heart" (click)="cameraParameter(i,false)">
+            <ion-icon name="ios-attach"></ion-icon>
+            <ion-label>Subir evidencia</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <img [src]="foto[i]" *ngIf="foto[i]" />
+
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
+  <ion-button *ngIf="ocultar1" size="large" expand="block" type="submit" (click)="sendDataRta()">
+    Guardar Cambios
+  </ion-button>
+
+  <ion-button *ngIf="ocultar1" (click)="OpenConfirmDialogue()" size="large" expand="block" type="submit" [disabled]="statusButton">
+    Guardar y Finalizar
+  </ion-button>
+
+  <ion-button (click)="openPDF()" size="large" expand="block" type="submit" [disabled]="statusButton"> Generar PDF </ion-button>
+
+  
+
+</ion-content>

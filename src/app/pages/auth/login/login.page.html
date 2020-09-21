@@ -1,0 +1,42 @@
+<ion-content class="fondoAzulApp">
+  <!-- <ion-item>
+    <ion-label>
+    </ion-label>
+  </ion-item> -->
+  <form [formGroup]="formLogin" (ngSubmit)="login()">
+
+    <ion-grid>
+      <ion-row justify-content-center>
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <ion-item margin-bottom class="border">
+            <ion-img src="/assets/essa.png"></ion-img>
+          </ion-item>
+          <div padding>
+            <ion-item>
+              <ion-label position="floating">Usuario</ion-label>
+              <ion-input type="text" formControlName="usuario"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="formLogin.get('usuario').errors?.required && formLogin.get('usuario').dirty"
+              class="sizeTextMessageInvalidInputs" lines="none">
+              El campo usuario es obligatorio
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="formLogin.get('password').errors?.required && formLogin.get('password').dirty"
+              class="sizeTextMessageInvalidInputs" lines="none">
+              El campo contraseña es obligatorio
+            </ion-item>
+          </div>
+          <div padding>
+            <ion-button size="large" type="submit" expand="block" [disabled]="!formLogin.valid">
+              Ingresar
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </form>
+</ion-content>

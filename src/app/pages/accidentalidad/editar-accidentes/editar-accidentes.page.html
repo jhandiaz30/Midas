@@ -1,0 +1,194 @@
+<ion-header class="fondoAzulApp">
+  <ion-toolbar>
+    <app-atras slot="start"></app-atras>
+    <ion-title>
+      Accidente {{accidente}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="fondoAzulApp">
+
+  <form [formGroup]="formAcc" (ngSubmit)="sendAccForm()">
+
+    <ion-item>
+      <ion-label>Contrato: </ion-label>
+
+      <ion-select interface="alert" placeholder="Seleccionar" cancelText="Cancelar" formControlName="cont">
+        <ion-select-option *ngFor="let con of loadContratos" value="{{ con.ID_CONTRATO }}">{{ con.NUMERO }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Tipo de evento</ion-label>
+      <ion-input type="text"></ion-input>
+      <ion-select interface="alert" placeholder="Seleccionar" cancelText="Cancelar" formControlName="eve">
+        <ion-select-option *ngFor="let evento of loadEvent" value="{{ evento.id_tipo_eve }}">{{ evento.descripcion }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Clase del evento</ion-label>
+      <ion-input type="text" formControlName="clasEv"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="formAcc.get('clasEv').errors?.required && formAcc.get('clasEv').dirty"
+      class="sizeTextMessageInvalidInputs" lines="none">
+      *La clase del evento es obligatoria*
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Municipio</ion-label>
+      <ion-select interface="alert" placeholder="Seleccionar" formControlName="municipio" cancelText="Cancelar">
+        <ion-select-option *ngFor="let munic of loadMuni" value="{{ munic.id_municipio }}">{{ munic.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Zona</ion-label>
+      <ion-input type="text" formControlName="zona"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="formAcc.get('zona').errors?.required && formAcc.get('zona').dirty"
+      class="sizeTextMessageInvalidInputs" lines="none">
+      *La zona es obligatoria*
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Clase Accidente</ion-label>
+      <ion-select interface="alert" placeholder="Seleccionar" formControlName="clasAc">
+        <ion-select-option *ngFor="let clase of loadClass" value="{{ clase.id_clase_acc }}">{{ clase.descripcion }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Poblacion</ion-label>
+      <ion-select interface="alert" placeholder="Seleccionar" formControlName="poblacion" cancelText="Cancelar">
+        <ion-select-option>Urbana</ion-select-option>
+        <ion-select-option>Rural</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Cedula del accidentado</ion-label>
+      <ion-input type="tel" formControlName="cedula" maxLength="10"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="formAcc.get('cedula').errors?.required && formAcc.get('cedula').dirty"
+      class="sizeTextMessageInvalidInputs" lines="none">
+      *La cedula es obligatoria*
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Nombre del accidentado</ion-label>
+      <ion-input type="text" formControlName="nomAcc"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="formAcc.get('nomAcc').errors?.required && formAcc.get('nomAcc').dirty"
+      class="sizeTextMessageInvalidInputs" lines="none">
+      *El nombre del accidente es obligatorio*
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Cargo del accidentado</ion-label>
+      <ion-input type="text" formControlName="cargoAcc"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="formAcc.get('cargoAcc').errors?.required && formAcc.get('cargoAcc').dirty"
+      class="sizeTextMessageInvalidInputs" lines="none">
+      *El cargo del accidente es obligatorio*
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Realizaba su trabajo</ion-label>
+      <ion-select interface="alert" placeholder="Seleccionar" formControlName="trabajo" cancelText="Cancelar">
+        <ion-select-option>Si</ion-select-option>
+        <ion-select-option>No</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Lugar del accidente</ion-label>
+      <ion-input type="text" formControlName="lAcc"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="formAcc.get('lAcc').errors?.required && formAcc.get('lAcc').dirty"
+      class="sizeTextMessageInvalidInputs" lines="none">
+      *El lugar es obligatorio*
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Fecha del accidente</ion-label>
+      <ion-datetime formControlName="fAcc" cancelText="Cerrar" doneText="Ok" displayFormat="DD/MM/YYYY"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Parte del cuerpo afectada</ion-label>
+      <ion-input type="text" formControlName="cAfect"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="formAcc.get('cAfect').errors?.required && formAcc.get('cAfect').dirty"
+      class="sizeTextMessageInvalidInputs" lines="none">
+      *El campo es obligatorio*
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Accidente reportado por</ion-label>
+      <ion-input type="text" formControlName="aRepor"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="formAcc.get('aRepor').errors?.required && formAcc.get('aRepor').dirty"
+      class="sizeTextMessageInvalidInputs" lines="none">
+      *El campo es obligatorio*
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Cargo de quien reporta</ion-label>
+      <ion-input type="text" formControlName="cRepor"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="formAcc.get('cRepor').errors?.required && formAcc.get('cRepor').dirty"
+      class="sizeTextMessageInvalidInputs" lines="none">
+      *El campo es obligatorio*
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Fecha del reporte</ion-label>
+      <ion-datetime formControlName="fRepor" cancelText="Cerrar" doneText="Ok" displayFormat="DD/MM/YYYY">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Hora del reporte</ion-label>
+      <ion-datetime formControlName="hRepor" cancelText="Cerrar" doneText="Ok" displayFormat="HH:mm"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Estado del reporte</ion-label>
+      <ion-select interface="alert" placeholder="Seleccionar" formControlName="eRepor" cancelText="Cancelar"
+        [compareWith]="eRepor">
+        <ion-select-option>Borrador</ion-select-option>
+        <ion-select-option>Finalizado</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Descripcion del accidente</ion-label>
+      <ion-textarea type="text" formControlName="dAcc"></ion-textarea>
+    </ion-item>
+
+    <ion-item *ngIf="formAcc.get('dAcc').errors?.required && formAcc.get('dAcc').dirty"
+      class="sizeTextMessageInvalidInputs" lines="none">
+      *La descripcion es obligatoria*
+    </ion-item>
+
+    <ion-button size="large" expand="block" class="buttonFollow" type="submit">
+      Actualizar accidente
+    </ion-button>
+
+  </form>
+
+</ion-content>
