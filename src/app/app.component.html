@@ -1,0 +1,26 @@
+<ion-app>
+  <ion-split-pane>
+    <ion-menu type="overlay" color="light">
+      <ion-header>
+        <ion-toolbar class="fondoAzulApp">
+          <ion-title>MIDAS</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content color="light">
+        <ion-list class="fondoBlancoMenu">
+          <ion-menu-toggle auto-hide="false">
+            <!-- ELEMENTO ITEM QUE SE REPITE Y SE VALIDA SU APARICION EN LA LISTA  -->
+            <ion-item [routerDirection]="'root'" *ngFor="let p of appPages" [routerLink]="[p.url]" [hidden]="!p.auth"
+              color="light">
+              <ion-icon slot="start" [name]="p.icon" class="iconMenu"></ion-icon>
+              <ion-label>
+                {{ p.title }}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

@@ -1,0 +1,41 @@
+<ion-header class="fondoAzulApp">
+  <ion-toolbar>
+    <app-menu slot="start"></app-menu>
+    <ion-title>
+      Accidentalidad
+    </ion-title>
+    <app-logout slot="end"></app-logout>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="fondoAzulApp">
+  <ion-list>
+
+    <!-- item que se muestra cuando el rol de usuario no tiene permiso para acceder a este formulario -->
+    <ion-item [hidden]="noAccess" lines="none" text-center>
+      <ion-label>No tiene acceso</ion-label>
+    </ion-item>
+
+    <!--se realiza un form para validar la opcion a donde quiere ir el usuario-->
+    <form [formGroup]="opciones">
+      <ion-item [hidden]="acci">
+        <ion-icon name="walk" class="logout"></ion-icon>&nbsp;&nbsp;
+        <ion-label>Accidentes</ion-label>
+        <ion-select class="alertOpcion" interface="action-sheet" placeholder="ir a" cancelText="Cancelar"
+          formControlName="opcion" (ionChange)="opcion()">
+          <ion-button>
+            <ion-select-option value="accidentes-form">Reportar accidente</ion-select-option>
+            <ion-select-option value="lista-accidentes">Editar </ion-select-option>
+          </ion-button>
+        </ion-select>
+      </ion-item>
+    </form>
+
+    <ion-item routerLink="/ili" [hidden]="ili">
+      <ion-icon name="speedometer" class="logout"></ion-icon>
+      &nbsp;&nbsp;
+      <ion-label>ILI</ion-label>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

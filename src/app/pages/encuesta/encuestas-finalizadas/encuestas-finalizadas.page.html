@@ -1,0 +1,33 @@
+<ion-header class="fondoAzulApp">
+  <ion-toolbar>
+    <app-atras slot="start"></app-atras>
+    <ion-title class="container">{{titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fondoAzulApp">
+  <ion-item lines="none">
+    <ion-label class="ion-text-center" id="itemUser">Hola {{ usuario }}</ion-label>
+  </ion-item>
+
+  <ion-card class="desingcard">
+    <ion-card-header>
+      <ion-card-subtitle class="ion-text-center"
+        >{{"Verifica si tienes encuestás por subir" }}<br />
+        </ion-card-subtitle
+      >
+      <ion-button  (click)="comprobarConexion()" size="large" type="submit" expand="block" [disabled]="!hab">
+       {{"Verificar"}}
+      </ion-button>
+
+      <ion-card-subtitle class="ion-text-center"
+        >{{"Debes tener conexión a internet habilitada para verificar y cargar"}}<br />
+    </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content class="ion-text-justify">
+      
+    </ion-card-content>
+  </ion-card>
+ 
+</ion-content>

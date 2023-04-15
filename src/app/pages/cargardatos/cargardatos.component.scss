@@ -1,0 +1,52 @@
+ion-content {
+    --padding-top: 40%;
+  }
+  ion-item {
+    --background: transparent;
+  }
+  .item-has-focus ion-label,
+  .titulo {
+    color: white !important;
+  }
+  // ion-button{
+  //     --color: white;
+  //     --background: #009BDB;
+  // }
+  ion-img {
+    margin: 0 auto;
+  }
+  .border {
+    --border-color: transparent;
+  }
+  
+  .centrado{
+    justify-content:center;
+    text-align:left; 
+      color: white;
+    background: #004694;
+  
+  }
+
+  .centrado2{
+    justify-content:center;
+    text-align:center; 
+      color: white;
+    background: #004694;
+  
+  }
+ 
+  :root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+  }
+  ion-toggle {
+    --background: #000;
+    --background-checked: #7a49a5;
+  
+    --handle-background: #7a49a5;
+    --handle-background-checked: #000;
+    --handle-background-checked: #fff url(/assets/power-icon.png) no-repeat center / contain;
+  
+  }
+  
+  

@@ -1,0 +1,117 @@
+//AQUI SE GESTIONAN TODO LOS ESTILOS GENERALES PARA LA APP
+//SI SE REQUIEREN REALIZAR ESTILOS ESPECIALES PARA CADA PAGINA SE DEBEN REALIZAR EN EL CSS DE DICHA PAGINA
+
+.fondoBlancoMenu {
+  background: #f4f5f8;
+}
+
+.iconMenu {
+  color: #004694;
+}
+.iconItemEstadistica {
+  color: white;
+}
+
+.logout {
+  color: white !important;
+}
+
+ion-button {
+  --color: white;
+  --background: #009bdb;
+  font-size: 14px;
+}
+
+ion-card {
+  --color-text: white;
+}
+
+.buttonFollow {
+  margin-top: 8%;
+}
+
+.item-has-focus ion-label,
+.titulo {
+  color: white !important;
+}
+
+/*Clase que personalizar el fondo general de la app y el color de los textos*/
+.fondoAzulApp {
+  --ion-background-color: #004694;
+  --ion-text-color: white;
+}
+
+/*Clase que permite personalizar el radio de los select*/
+.custom-popover {
+  ion-radio {
+    --color-checked: #004694;
+  }
+}
+
+/*Clase que permite personalizar el calendario*/
+.picker-opt.picker-opt-selected,
+.picker-button.sc-ion-picker-md,
+.picker-button.activated.sc-ion-picker-md {
+  color: #004694;
+}
+
+/*Clase para los mensajes de error en validaciones de formularios*/
+.sizeTextMessageInvalidInputs {
+  font-size: 0.8em !important;
+  color: #e3bcbc;
+}
+
+/*Clase para personalizar el card*/
+.desingcard {
+  color: white;
+}
+
+/*Calse para personalizar el subtitulo del card*/
+.desingcard ion-card-subtitle {
+  font-weight: bold;
+  color: white;
+  margin-bottom: 7%;
+  font-size: 1.2em;
+}
+
+#itemUser {
+  padding-top: 7%;
+  font-weight: bold;
+}
+
+#cardEstadisticas {
+  background: white;
+}
+
+.overflow-visible {
+  white-space: initial;
+}
+.alert-radio-label.sc-ion-alert-md {
+  white-space: pre-line !important;
+}
+
+.alert-radio-label.sc-ion-alert-ios {
+  white-space: pre-line !important;
+}
+
+.alert-wrapper.sc-ion-alert-md {
+  min-height: 30% !important;
+  min-width: 75% !important;
+  max-height: 100% !important;
+}
+
+.alert-wrapper.sc-ion-alert-ios {
+  min-height: 30% !important;
+  min-width: 75% !important;
+  max-height: 100% !important;
+}
+
+.alert-checkbox-group.sc-ion-alert-md,
+.alert-radio-group.sc-ion-alert-md {
+  overflow-y: scroll;
+}
+
+.alert-checkbox-group.sc-ion-alert-md,
+.alert-radio-group.sc-ion-alert-ios {
+  overflow-y: scroll;
+}
